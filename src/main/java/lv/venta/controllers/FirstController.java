@@ -19,4 +19,7 @@ public class FirstController {
 		model.addAttribute("packet", "Message from Marta");
 		return "msg-page";		//will show msg-page.html
 	}
+	
+	//TODO Product class - title, description, price, quantity
+	//TODO controller function which will send new product to front-end
 }
