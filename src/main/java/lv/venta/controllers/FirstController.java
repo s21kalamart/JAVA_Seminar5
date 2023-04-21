@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import lv.venta.model.*;
@@ -73,5 +74,21 @@ public class FirstController {
 		}
 		model.addAttribute("packetError", "Wrong ID");
 		return "error-page";	//will call error-page.html
+	}
+	
+	@GetMapping("/add-product")	//localhost:8080/add-product
+	public String getAddProdFunc(Model model) {
+		model.addAttribute("product", new Product());	//send an empty product
+		return "add-product-page";	//will call add-product-page.html
+	}
+	
+	@PostMapping("/add-product")
+	public String postAddProdFunc(Product product) {	//retrieve product with all parameters
+		//TODO verify if this product already exists
+		Product newProduct = new Product(product.getTitle(), 
+				product.getDescription(), product.getPrice(), product.getQuantity());
+		allProducts.add(newProduct);
+		
+		return "redirect:/all-products";	//will call /all-products end-point
 	}
 }
