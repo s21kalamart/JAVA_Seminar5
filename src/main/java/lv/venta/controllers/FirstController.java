@@ -5,6 +5,7 @@ import java.util.Arrays;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import lv.venta.model.*;
 import java.util.ArrayList;
@@ -43,5 +44,19 @@ public class FirstController {
 	public String getAllProdFunc(Model model) {
 		model.addAttribute("packet", allProducts);
 		return "all-products-page";	//will show all-products-page.html
+	}
+	
+	@GetMapping("/all-products-find")	//localhost:8080/all-products-find?id=2
+	public String getAllProdFindFunc(@RequestParam("id") long id, Model model) {
+		if(id > 0) {
+			for(Product temp : allProducts) {
+				if(temp.getId() == id) {
+					model.addAttribute("packet", temp);
+					return "one-product-page";	//will call one-product-page.html
+				}
+			}
+		}
+		model.addAttribute("packet-error", "Wrong ID");
+		return "error-page";	//will call error-page.html
 	}
 }
