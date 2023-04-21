@@ -35,15 +35,10 @@ public class Product {
 	public long getId() {
 		return id;
 	}
-	public void setId(long id) {
-		this.id = id;
+	public void setId() {
+		this.id = idCounter++;
 	}
-	public static long getIdCounter() {
-		return idCounter;
-	}
-	public static void setIdCounter(long idCounter) {
-		Product.idCounter = idCounter;
-	}
+	
 	public Product(String title, String description, float price, int quantity) {
 		setId();
 		this.title = title;
@@ -52,5 +47,9 @@ public class Product {
 		this.quantity = quantity;
 	}
 	
-	
+	public Product() {}
+	@Override
+	public String toString() {
+		return "Product [title=" + title + ", description=" + description + ", price=" + price + ", quantity=" + quantity + ", id=" + id + "]";
+	}
 }
