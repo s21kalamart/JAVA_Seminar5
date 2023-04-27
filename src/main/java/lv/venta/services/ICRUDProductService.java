@@ -17,8 +17,8 @@ public interface ICRUDProductService {
 	public abstract Product retrieveProductById(long id) throws Exception;
 	
 	//U - update
-	public abstract void updateById(long id, String title, String description, float price, int quantity);
+	public abstract void updateById(long id, String title, String description, float price, int quantity) throws Exception;
 	
 	//D - delete
-	public abstract void deleteById(long id);
+	public abstract void deleteById(long id) throws Exception;
 }
