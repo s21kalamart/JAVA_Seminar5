@@ -15,12 +15,6 @@ import java.util.ArrayList;
 @Controller
 public class FirstController {
 	
-	private ArrayList<Product> allProducts = new ArrayList<>(Arrays.asList(
-			new Product("Watermelon", "Red", 2.34f, 6),
-			new Product("Lemon", "Sour", 5.34f, 3),
-			new Product("Carrot", "Orange", 1.1f, 20)
-			));
-	
 	@GetMapping("/hello")	//localhost:8080/hello
 	public String getHelloFunc() {
 		System.out.println("Sveiki!");
