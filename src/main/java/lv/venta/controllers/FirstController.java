@@ -84,8 +84,16 @@ public class FirstController {
 	
 	@PostMapping("/add-product")
 	public String postAddProdFunc(@Valid Product product, BindingResult result) {	//retrieve product with all parameters
+		
+		//TODO add validation also in update
+		//TODO add Your own messages in validation annotations
+		
 		if(!result.hasErrors()) {
 			try {
+				System.out.println(product.getTitle());
+				System.out.println(product.getDescription());
+				System.out.println(product.getPrice());
+				System.out.println(product.getQuantity());
 				CRUDService.addNewProduct(product.getTitle(), product.getDescription(), product.getPrice(), product.getQuantity());
 				return "redirect:/all-products";	//will call /all-products end-point
 			}
@@ -99,8 +107,8 @@ public class FirstController {
 	public String getUpdateProdFunc(@PathVariable("id") long id, Model model) {
 		try {
 			Product prod = CRUDService.retrieveProductById(id);
-			model.addAttribute("packet", prod);
-			return "one-product-page";	//will call one-product-page.html
+			model.addAttribute("product", prod);
+			return "update-product-page";	//will call one-product-page.html
 		}
 		catch(Exception e) {
 			model.addAttribute("packetError", e.getMessage());
@@ -109,14 +117,16 @@ public class FirstController {
 	}
 	
 	@PostMapping("/update-product/{id}")
-	public String postUpdateProdFunc(@PathVariable("id") long id, Product product) {
-		try {
-			CRUDService.updateById(id, product.getTitle(), product.getDescription(), product.getPrice(), product.getQuantity());
-			return "redirect:/all-products/" + id;	//will call localhost:8080/all-products/2 end-point
-		}
-		catch(Exception e) {
-			return "redirect:/error";	//will call localhost:8080/error
-		}
+	public String postUpdateProdFunc(@PathVariable("id") long id, @Valid Product product, BindingResult result) {
+		if(!result.hasErrors()) {
+			try {
+				CRUDService.updateById(id, product.getTitle(), product.getDescription(), product.getPrice(), product.getQuantity());
+				return "redirect:/all-products/" + id;	//will call localhost:8080/all-products/2 end-point
+			}
+			catch(Exception e) {
+				return "redirect:/error";	//will call localhost:8080/error
+			}
+		} else return "update-product-page";
 	}
 	
 	@GetMapping("/error")	//localhost:8080/error

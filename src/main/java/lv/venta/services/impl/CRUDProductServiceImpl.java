@@ -20,7 +20,7 @@ public class CRUDProductServiceImpl implements ICRUDProductService {
 	@Override
 	public void addNewProduct(String title, String description, float price, int quantity) throws Exception {
 		//TODO verification with regex title and description
-		if(title != null && description != null && price > 0 && price < 10000 && quantity > 0 && quantity < 100000) {
+	
 			boolean isFound = false;
 			for(Product temp : allProducts) {
 				if(temp.getTitle().equals(title) && temp.getDescription().equals(description) && temp.getPrice() == price) {
@@ -33,8 +33,7 @@ public class CRUDProductServiceImpl implements ICRUDProductService {
 				Product newProduct = new Product(title, description, price, quantity);
 				allProducts.add(newProduct);
 			}
-		}
-		else throw new Exception("Incorrect params");
+
 	}
 
 	@Override
